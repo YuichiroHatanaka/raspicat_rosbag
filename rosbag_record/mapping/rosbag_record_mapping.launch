@@ -6,7 +6,7 @@
   <param if="$(arg ssd)" name="mk_rosbag_dir" command="mkdir -p /media/hatanaka/tsudanuma"/>
   
   <node if="$(arg ssd)" pkg="rosbag" type="record" name="rosbag_record_navigation" output="screen"
-    args="-o /media/hatanaka/tsudanuma
+    args="-o /media/hatanaka/tsudanuma/raspi_only
             -b 0
             --split
             --size=50120
