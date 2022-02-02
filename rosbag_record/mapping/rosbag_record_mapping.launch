@@ -4,28 +4,30 @@
   <arg name="ssd_name" default="PortableSSD"/>
 
   <param if="$(arg ssd)" name="mk_rosbag_dir" command="mkdir -p /media/$(env USER)/$(arg ssd_name)/raspicat_rosbag/mapping/"/>
-  <param unless="$(arg ssd)" name="mk_rosbag_dir" command="mkdir -p /home/$(env USER)/raspicat_rosbag/mapping/"/>
   
   <node if="$(arg ssd)" pkg="rosbag" type="record" name="rosbag_record_navigation" output="screen"
-    args="-o /media/$(env USER)/PortableSSD/raspicat_rosbag/mapping/mapping
+    args="-o /media/hatanaka/tsudanuma
             -b 0
             --split
             --size=50120
             -e
-            /cmd_vel  
+            /amcl_pose
+            /cmd_vel
+            /map
+            /motor_raw
+            /move_base/DWAPlannerROS/global_plan
+            /move_base/DWAPlannerROS/local_plan
+            /move_base/NavfnROS/plan
+            /move_base/feedback
+            /move_base/global_costmap/costmap
+            /move_base/local_costmap/costmap
             /odom
             /scan
-            /tf(.*)
+            /tf
+            /tf_static
+            /move_base_simple/goal
+            /particlecloud
+            /waypoint*
   "/>
-  <node unless="$(arg ssd)" pkg="rosbag" type="record" name="rosbag_record_navigation" output="screen"
-    args="-o /home/$(env USER)/raspicat_rosbag/mapping/mapping
-              -b 0
-              --split
-              --size=50120
-              -e
-              /cmd_vel  
-              /odom
-              /scan     
-              /tf(.*)
-  "/>
+  
 </launch>
